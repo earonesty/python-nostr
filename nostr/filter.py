@@ -1,5 +1,5 @@
 from collections import UserList
-from typing import List
+from typing import Optional, List
 
 from .event import Event, EventKind
 
@@ -117,7 +117,8 @@ class Filter:
 
 
 class Filters(UserList):
-    def __init__(self, initlist: "list[Filter]"=[]) -> None:
+    def __init__(self, initlist: Optional["list[Filter]"]=None) -> None:
+        initlist = [] if initlist is None else initlist
         super().__init__(initlist)
         self.data: "list[Filter]"
 

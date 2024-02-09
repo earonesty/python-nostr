@@ -1,6 +1,7 @@
 import time
 from .event import Event
 from .key import PrivateKey
+from typing import Optional
 
 def zero_bits(b: int) -> int:
     n = 0
@@ -25,7 +26,8 @@ def count_leading_zero_bits(hex_str: str) -> int:
 
     return total
 
-def mine_event(content: str, difficulty: int, public_key: str, kind: int, tags: list=[]) -> Event:
+def mine_event(content: str, difficulty: int, public_key: str, kind: int, tags: Optional[list]=None) -> Event:
+    tags = [] if tags is None else tags
     all_tags = [["nonce", "1", str(difficulty)]]
     all_tags.extend(tags)
 
