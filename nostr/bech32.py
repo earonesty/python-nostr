@@ -50,8 +50,7 @@ def bech32_hrp_expand(hrp):
 
 def bech32_verify_checksum(hrp, data):
     """Verify a checksum given HRP and converted data characters."""
-    const = bech32_polymod(bech32_hrp_expand(hrp) + data)
-    if const == 1:
+    if (const := bech32_polymod(bech32_hrp_expand(hrp) + data)) == 1:
         return Encoding.BECH32
     if const == BECH32M_CONST:
         return Encoding.BECH32M
@@ -83,8 +82,7 @@ def bech32_decode(bech):
         return (None, None, None)
     hrp = bech[:pos]
     data = [CHARSET.find(x) for x in bech[pos+1:]]
-    spec = bech32_verify_checksum(hrp, data)
-    if spec is None:
+    if (spec := bech32_verify_checksum(hrp, data)) is None:
         return (None, None, None)
     return (hrp, data[:-6], spec)
 
