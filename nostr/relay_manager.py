@@ -1,7 +1,7 @@
 import json
 import time
 import threading
-from dataclasses import dataclass
+from dataclasses import field, dataclass
 from threading import Lock
 
 from .event import Event
@@ -21,7 +21,7 @@ class RelayException(Exception):
 @dataclass
 class RelayManager:
     def __post_init__(self):
-        self.relays: dict[str, Relay] = {}
+        self.relays: dict[str, Relay] = field(default_factory=dict)
         self.message_pool: MessagePool = MessagePool()
         self.lock: Lock = Lock()
 

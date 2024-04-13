@@ -1,6 +1,6 @@
 import json
 import time
-from dataclasses import dataclass
+from dataclasses import field, dataclass
 from queue import Queue
 from threading import Lock
 from typing import Optional
@@ -40,7 +40,7 @@ class Relay:
 
     def __post_init__(self):
         self.queue = Queue()
-        self.subscriptions: dict[str, Subscription] = {}
+        self.subscriptions: dict[str, Subscription] = field(default_factory=dict)
         self.num_sent_events: int = 0
         self.connected: bool = False
         self.reconnect: bool = True
